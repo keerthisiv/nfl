@@ -50,4 +50,8 @@ We will evaluate you on your ability to solve the problem defined in the require
 If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
 
 ### Installation and running this solution
-... TODO
+1. Download this repo
+2. Run bundle install
+3. Run yarn install
+4. rake db:create && rake db:migrate && rake db:seed
+5. Run rails s and open the browser to http://localhost:3000
