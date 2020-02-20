@@ -5,7 +5,14 @@ class PlayersController < ApplicationController
   end
 
   def search
-    players = Player.where("lower(name) LIKE ?", "%#{params[:name]}%")
+    players = Player.all
+    players = Player.where('lower(name) LIKE ?', "%#{params[:name]}%") if params[:name]
+    if params[:order]
+      order_sql = []
+      order = params[:order].split(',').each_slice(2) { |order_name, dir| order_sql << "performances.#{order_name} #{dir}" }
+      players = players.joins(:performances).order(order_sql.join(', '))
+    end
+
     @players = serilaized_resouce(players)
     render :json => { players: @players }
   end
