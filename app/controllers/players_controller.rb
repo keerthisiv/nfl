@@ -1,6 +1,7 @@
 class PlayersController < ApplicationController
   def index
-    @players = serilaized_resouce(Player.all)
+    all_players = Player.where(nil).includes(:performances, :team)
+    @players = serilaized_resouce(all_players)
     render component: 'Players', props: { players: @players }
   end
 
@@ -13,15 +14,17 @@ class PlayersController < ApplicationController
       end
     end
 
-    @players = serilaized_resouce(players)
+    @players = serilaized_resouce(players.includes(:performances, :team))
     render :json => { players: @players }
   end
 
   private
 
   def serilaized_resouce(players)
-    players.map do |player|
-      player.serializable_hash(include: [:performances, :team])
+    list = []
+    players.each do |player|
+      list << player.serializable_hash(include: [:performances, :team])
     end
+    list
   end
 end
