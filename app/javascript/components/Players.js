@@ -96,8 +96,8 @@ const Players = ({ players }) => {
         ref={focusSearch}
         onChange={(e) => setSearchValue(e.target.value)}
         value={searchValue} />
-      <CSVLink data={playersList} headers={headers} asyncOnClick={true}>
-        Download me
+      <CSVLink data={playersList} headers={headers} filename={"players.csv"}>
+        Download csv
       </CSVLink>
       <table>
         <thead>
